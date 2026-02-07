@@ -1,4 +1,9 @@
-# Python
+# Rust
+target/
+**/*.rs.bk
+*.pdb
+
+# Python (legacy - can be removed if needed)
 __pycache__/
 *.py[cod]
 *$py.class
@@ -52,3 +57,8 @@ logs/
 .pytest_cache/
 .coverage
 htmlcov/
+
+
+# Added by cargo
+
+/target

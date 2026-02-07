@@ -1,6 +1,6 @@
 # OpenClaw Bot - My Assistant
 
-A Python-based bot that assists with planning on Notion and managing tasks in GitHub repositories.
+A Rust-based bot that assists with planning on Notion and managing tasks in GitHub repositories.
 
 ## Features
 
@@ -8,10 +8,11 @@ A Python-based bot that assists with planning on Notion and managing tasks in Gi
 - 🐙 **GitHub Integration**: Create and manage issues, assign tasks to team members
 - 🔄 **Bi-directional Sync**: Sync tasks between Notion and GitHub
 - ⚙️ **Easy Configuration**: Environment-based configuration for flexible deployment
+- 🦀 **Written in Rust**: Fast, reliable, and memory-safe
 
 ## Prerequisites
 
-- Python 3.7 or higher
+- Rust 1.70 or higher (install from [rustup.rs](https://rustup.rs/))
 - Notion account with API access
 - GitHub account with personal access token
 - A Notion database for task management
@@ -25,10 +26,10 @@ git clone https://github.com/doitsu2014/my-assistant.git
 cd my-assistant
 ```
 
-### 2. Install Dependencies
+### 2. Install Rust (if not already installed)
 
 ```bash
-pip install -r requirements.txt
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 ### 3. Configure Environment Variables
@@ -54,10 +55,14 @@ Your Notion database should have the following properties:
 - **Description** (Text): Task description
 - **Status** (Select): Task status (e.g., "Not Started", "In Progress", "Done")
 
-### 5. Run the Bot
+### 5. Build and Run the Bot
 
 ```bash
-python bot.py
+# Build the project
+cargo build --release
+
+# Run the bot
+cargo run --release
 ```
 
 ## Usage
@@ -81,15 +86,28 @@ Retrieves open issues from GitHub and can create corresponding tasks in Notion.
 
 ```
 my-assistant/
-├── bot.py                    # Main bot entry point
-├── config.py                 # Configuration management
-├── notion_integration.py     # Notion API integration
-├── github_integration.py     # GitHub API integration
-├── requirements.txt          # Python dependencies
+├── src/
+│   ├── main.rs              # Main entry point
+│   ├── bot.rs               # Bot orchestration logic
+│   ├── config.rs            # Configuration management
+│   ├── notion.rs            # Notion API integration
+│   └── github.rs            # GitHub API integration
+├── Cargo.toml               # Rust dependencies
 ├── .env.example             # Example environment variables
 ├── .gitignore               # Git ignore file
 └── README.md                # This file
 ```
+
+## Dependencies
+
+The bot uses the following Rust crates:
+
+- **reqwest**: HTTP client for API requests
+- **tokio**: Async runtime
+- **serde/serde_json**: JSON serialization
+- **dotenv**: Environment variable loading
+- **anyhow/thiserror**: Error handling
+- **octocrab**: GitHub API client
 
 ## Example Workflows
 
@@ -110,12 +128,28 @@ my-assistant/
 
 ## Development
 
+### Building
+
+```bash
+# Debug build
+cargo build
+
+# Release build (optimized)
+cargo build --release
+```
+
+### Testing
+
+```bash
+cargo test
+```
+
 ### Adding New Features
 
 The bot is designed to be extensible. You can add new features by:
 
-1. Adding new methods to `NotionIntegration` or `GitHubIntegration` classes
-2. Creating new operations in the `OpenClawBot` class
+1. Adding new methods to the integration modules (`notion.rs`, `github.rs`)
+2. Creating new operations in the `OpenClawBot` struct in `bot.rs`
 3. Updating the `run()` method to include your new operations
 
 ### Scheduling
