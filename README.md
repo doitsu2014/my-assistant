@@ -2,13 +2,38 @@
 
 A Rust-based bot that assists with planning on Notion and managing tasks in GitHub repositories.
 
-## Features
+## 📚 Documentation
 
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Detailed architecture, diagrams, and how the bot works
+- **[Quick Start](#setup)** - Get started in 5 minutes
+- **[Usage Examples](#example-workflows)** - Common use cases
+
+## How It Works
+
+```
+┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+│   Notion    │◀───────▶│  OpenClaw    │◀───────▶│   GitHub    │
+│  Database   │  Sync   │     Bot      │  Sync   │   Issues    │
+│  (Planning) │         │ (Rust/Tokio) │         │ (Execution) │
+└─────────────┘         └──────────────┘         └─────────────┘
+      │                                                  │
+      │  • Task Management                              │
+      │  • Status Tracking          ┌──────────┐        │  • Issue Tracking
+      │  • Team Planning      ─────▶│  Config  │◀─────  │  • Assignments
+      │                             │  (.env)  │        │  • Comments
+      │                             └──────────┘        │
+      └───────────────────────────────────────────────────┘
+                   Bi-directional Sync
+```
+
+**Key Features**:
 - 🗂️ **Notion Integration**: Manage tasks and planning in Notion databases
 - 🐙 **GitHub Integration**: Create and manage issues, assign tasks to team members
-- 🔄 **Bi-directional Sync**: Sync tasks between Notion and GitHub
+- 🔄 **Bi-directional Sync**: Keep Notion and GitHub in sync automatically
 - ⚙️ **Easy Configuration**: Environment-based configuration for flexible deployment
-- 🦀 **Written in Rust**: Fast, reliable, and memory-safe
+- 🦀 **Written in Rust**: Fast (8.3MB binary), reliable, and memory-safe
+
+For detailed architecture, data flows, and technical deep-dive, see **[ARCHITECTURE.md](ARCHITECTURE.md)**.
 
 ## Prerequisites
 
@@ -163,6 +188,19 @@ For automated syncing, you can:
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+For technical details on extending the bot, see the [Architecture Documentation](ARCHITECTURE.md#contributing).
+
+## Documentation
+
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Complete technical documentation
+  - Architecture diagrams
+  - Component descriptions
+  - Data flow diagrams
+  - API integration details
+  - Deployment strategies
+  - Error handling patterns
+  - Future enhancements
 
 ## License
 
