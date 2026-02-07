@@ -32,6 +32,24 @@ class OpenClawBot:
             print(f"Error initializing bot: {e}")
             sys.exit(1)
     
+    def _extract_task_title(self, task):
+        """
+        Extract task title from Notion task object
+        
+        Args:
+            task (dict): Notion task object
+            
+        Returns:
+            str: Task title or 'Untitled' if not found
+        """
+        try:
+            title_data = task.get('properties', {}).get('Name', {}).get('title', [])
+            if title_data:
+                return title_data[0].get('text', {}).get('content', 'Untitled')
+        except (KeyError, IndexError, TypeError):
+            pass
+        return 'Untitled'
+    
     def sync_notion_to_github(self):
         """
         Sync tasks from Notion to GitHub issues
@@ -47,8 +65,7 @@ class OpenClawBot:
         
         # Process each task
         for task in notion_tasks:
-            # Extract task information
-            title = task['properties'].get('Name', {}).get('title', [{}])[0].get('text', {}).get('content', 'Untitled')
+            title = self._extract_task_title(task)
             print(f"  - {title}")
         
         return notion_tasks
