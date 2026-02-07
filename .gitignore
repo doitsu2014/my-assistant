@@ -57,8 +57,3 @@ logs/
 .pytest_cache/
 .coverage
 htmlcov/
-
-
-# Added by cargo
-
-/target

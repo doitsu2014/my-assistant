@@ -39,29 +39,6 @@ impl Config {
         
         Ok(config)
     }
-    
-    /// Validate that all required configuration is present
-    pub fn validate(&self) -> Vec<String> {
-        let mut missing = Vec::new();
-        
-        if self.notion_api_key.is_empty() {
-            missing.push("NOTION_API_KEY".to_string());
-        }
-        if self.notion_database_id.is_empty() {
-            missing.push("NOTION_DATABASE_ID".to_string());
-        }
-        if self.github_token.is_empty() {
-            missing.push("GITHUB_TOKEN".to_string());
-        }
-        if self.github_owner.is_empty() {
-            missing.push("GITHUB_OWNER".to_string());
-        }
-        if self.github_repo.is_empty() {
-            missing.push("GITHUB_REPO".to_string());
-        }
-        
-        missing
-    }
 }
 
 #[derive(Debug, thiserror::Error)]

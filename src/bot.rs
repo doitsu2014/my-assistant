@@ -16,15 +16,6 @@ impl OpenClawBot {
     pub fn new(config: Config) -> Result<Self> {
         println!("Initializing {}...", config.bot_name);
         
-        // Validate configuration
-        let missing_config = config.validate();
-        if !missing_config.is_empty() {
-            anyhow::bail!(
-                "Error: Missing required configuration: {}\nPlease create a .env file based on .env.example and fill in the required values.",
-                missing_config.join(", ")
-            );
-        }
-        
         // Initialize integrations
         let notion = NotionIntegration::new(
             config.notion_api_key.clone(),
@@ -139,6 +130,16 @@ impl OpenClawBot {
         println!("  3. Create GitHub issue from Notion task");
         println!("  4. Create Notion task from GitHub issue");
         println!("\nFor automated syncing, you can schedule these operations using cron or a task scheduler.");
+        println!("\n--- Running sync operations ---");
+        
+        // Example: Show current tasks and issues
+        if let Err(e) = self.sync_notion_to_github() {
+            eprintln!("Error syncing Notion to GitHub: {}", e);
+        }
+        
+        if let Err(e) = self.sync_github_to_notion().await {
+            eprintln!("Error syncing GitHub to Notion: {}", e);
+        }
         
         Ok(())
     }

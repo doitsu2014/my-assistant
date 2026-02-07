@@ -28,16 +28,10 @@ async fn main() -> Result<()> {
         }
     };
     
-    // Run bot
-    bot.run().await?;
-    
-    // Example: Show current tasks and issues
-    if let Err(e) = bot.sync_notion_to_github() {
-        eprintln!("Error syncing Notion to GitHub: {}", e);
-    }
-    
-    if let Err(e) = bot.sync_github_to_notion().await {
-        eprintln!("Error syncing GitHub to Notion: {}", e);
+    // Run bot and perform sync operations
+    if let Err(e) = bot.run().await {
+        eprintln!("Error running bot: {}", e);
+        std::process::exit(1);
     }
     
     Ok(())
